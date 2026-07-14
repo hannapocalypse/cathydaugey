@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ballet — Cathy Daugey</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap');
+
+  :root{
+    --void:#1a0d0e;
+    --wine:#3a1015;
+    --wine-2:#1c0d0e;
+    --parchment:#e9e1cd;
+    --parchment-dim:#a99a7d;
+    --gold:#c9a15f;
+    --gold-soft:#8a703f;
+    --hairline: rgba(201,161,95,0.28);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; padding:0; color:var(--parchment);
+    font-family:'EB Garamond', serif; position:relative;
+    background:
+      radial-gradient(ellipse 1300px 800px at 12% 0%, rgba(122,38,50,0.22), transparent 55%),
+      radial-gradient(ellipse 1100px 900px at 90% 30%, rgba(90,20,30,0.16), transparent 55%),
+      radial-gradient(ellipse 1400px 1000px at 30% 100%, rgba(70,15,22,0.20), transparent 60%),
+      var(--void);
+  }
+  .page-sheen{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+    opacity:0.045; mix-blend-mode:overlay;
+    background:repeating-linear-gradient(
+      115deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px,
+      transparent 2px, transparent 7px
+    );
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:0.09; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+    opacity:0.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><g fill='none' stroke='%23c9a15f' stroke-width='1'><path d='M120 10 C 150 40, 150 80, 120 110 C 90 80, 90 40, 120 10 Z'/><circle cx='120' cy='120' r='3'/><path d='M0 120 C 30 90, 70 90, 100 120 C 70 150, 30 150, 0 120 Z'/><path d='M120 230 C 150 200, 150 160, 120 130 C 90 160, 90 200, 120 230 Z'/><path d='M240 120 C 210 90, 170 90, 140 120 C 170 150, 210 150, 240 120 Z'/></g></svg>");
+    background-size:240px 240px;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  .eyebrow{
+    font-family:'Jost', sans-serif; font-weight:400; font-size:11.5px;
+    letter-spacing:0.28em; text-transform:uppercase; color:var(--gold);
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:34px 6vw; max-width:1320px; margin:0 auto;
+    border-bottom:1px solid var(--hairline);
+    position:relative; z-index:2;
+  }
+  .brand{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
+    font-size:32px; letter-spacing:0.01em; color:var(--parchment);
+  }
+  .navlinks{ display:flex; gap:44px; }
+  .navlinks a{
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--parchment-dim); font-weight:400;
+    transition:color .4s;
+  }
+  .navlinks a:hover{ color:var(--gold); }
+  .navlinks a.current{ color:var(--gold); }
+
+  /* ---------- intro ---------- */
+  .intro{
+    max-width:1320px; margin:0 auto; padding:9vh 6vw 7vh;
+    position:relative; z-index:2;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif; font-weight:500; font-style:italic;
+    font-size:clamp(46px,6vw,78px); line-height:1.02; margin:22px 0 26px;
+    color:var(--parchment); max-width:760px;
+  }
+  .intro p{
+    font-size:19px; line-height:1.8; color:var(--parchment-dim); max-width:600px;
+  }
+  .meta-row{
+    display:flex; gap:40px; margin-top:30px; font-family:'Jost'; font-size:12px;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-soft);
+  }
+
+  /* ---------- gallery: aspect-matched grid, no cropping ---------- */
+  .gallery{
+    max-width:1200px; margin:0 auto; padding:2vh 6vw 12vh;
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:32px;
+  }
+  .ph{
+    position:relative; overflow:hidden; border:1px solid var(--hairline);
+    display:block;
+  }
+  .ph.portrait{ aspect-ratio:3/4; }
+  .ph.landscape{ aspect-ratio:4/3; }
+  .p1{ grid-column:span 2; } /* tutu on mannequin, portrait */
+  .p2{ grid-column:span 4; } /* tutu flat lay, landscape */
+  .p3{ grid-column:span 3; } /* cream bustier front */
+  .p4{ grid-column:span 3; } /* cream bustier back */
+  .p5{ grid-column:span 3; } /* pink bustier front */
+  .p6{ grid-column:span 3; } /* pink bustier back */
+  .ph::after{
+    content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+    box-shadow: inset 0 0 70px rgba(0,0,0,0.55);
+  }
+  .ph img{
+    position:relative; z-index:1;
+    width:100%; height:100%; object-fit:cover; object-position:center top;
+    display:block;
+    filter:saturate(0.9) contrast(1.05);
+    transition:transform .5s ease;
+  }
+  .ph:hover img{ transform:scale(1.035); }
+
+  @media (max-width:700px){
+    .gallery{ grid-template-columns:1fr; }
+    .p1, .p2, .p3, .p4, .p5, .p6{ grid-column:span 1; }
+    .navlinks{ display:none; }
+  }
+
+  footer{ padding:40px 6vw 60px; text-align:center; position:relative; z-index:2; border-top:1px solid var(--hairline); }
+  footer .sans{ font-family:'Jost'; font-size:11px; letter-spacing:0.15em; color:var(--gold-soft); text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="page-sheen"></div>
+
+<nav>
+  <a href="index.html" class="brand">Cathy Daugey</a>
+  <div class="navlinks">
+    <a href="index.html#about">About</a>
+    <a href="venice.html">Venice</a>
+    <a href="opera.html">Opera</a>
+    <a href="ballet.html" class="current">Ballet</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="intro">
+  <span class="eyebrow">Opéra National de Bordeaux</span>
+  <h1>Ballet</h1>
+  <p>For <em>The Nutcracker</em>, Cathy built platter tutus and structured bustiers during an intermittent contract at the Opéra National de Bordeaux — boned, fitted, and constructed the way ballet costumes have always been made: piece by piece, for a body that needs to move.</p>
+  <div class="meta-row">
+    <span>Opéra National de Bordeaux</span>
+    <span>2024</span>
+    <span>Ballet · Corsetry</span>
+  </div>
+</div>
+
+<div class="gallery">
+  <a href="#" class="ph portrait p1"><img src="images/ballet-1-tutu-form.jpg" alt="Platter tutu on a dress form in the costume workshop"></a>
+  <a href="#" class="ph landscape p2"><img src="images/ballet-2-tutu-flat.jpg" alt="Tutu skirt laid flat, showing its star-shaped construction"></a>
+  <a href="#" class="ph landscape p3"><img src="images/ballet-3-bustier-cream-front.jpg" alt="Cream bustier bodice construction, front view"></a>
+  <a href="#" class="ph landscape p4"><img src="images/ballet-4-bustier-cream-inside.jpg" alt="Cream bustier bodice construction, interior boning"></a>
+  <a href="#" class="ph landscape p5"><img src="images/ballet-5-bustier-pink-inside.jpg" alt="Pink bustier bodice construction, interior boning"></a>
+  <a href="#" class="ph landscape p6"><img src="images/ballet-6-bustier-pink-outside.jpg" alt="Pink bustier bodice, exterior satin"></a>
+</div>
+
+<footer>
+  <span class="sans">Verdelais, France</span>
+</footer>
+
+</body>
+</html>
