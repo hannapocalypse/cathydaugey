@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ballet — Cathy Daugey</title>
+<title>High School Creations — Cathy Daugey</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap');
 
@@ -28,6 +28,11 @@
       radial-gradient(ellipse 1400px 1000px at 30% 100%, rgba(70,15,22,0.20), transparent 60%),
       var(--void);
   }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:0.09; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
   .page-sheen{
     position:fixed; inset:0; pointer-events:none; z-index:1;
     opacity:0.045; mix-blend-mode:overlay;
@@ -36,17 +41,6 @@
       transparent 2px, transparent 7px
     );
   }
-  body::before{
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:999;
-    opacity:0.09; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-  body::after{
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
-    opacity:0.05;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><g fill='none' stroke='%23c9a15f' stroke-width='1'><path d='M120 10 C 150 40, 150 80, 120 110 C 90 80, 90 40, 120 10 Z'/><circle cx='120' cy='120' r='3'/><path d='M0 120 C 30 90, 70 90, 100 120 C 70 150, 30 150, 0 120 Z'/><path d='M120 230 C 150 200, 150 160, 120 130 C 90 160, 90 200, 120 230 Z'/><path d='M240 120 C 210 90, 170 90, 140 120 C 170 150, 210 150, 240 120 Z'/></g></svg>");
-    background-size:240px 240px;
-  }
 
   a{ color:inherit; text-decoration:none; }
   .eyebrow{
@@ -54,7 +48,6 @@
     letter-spacing:0.28em; text-transform:uppercase; color:var(--gold);
   }
 
-  /* ---------- nav ---------- */
   nav{
     display:flex; justify-content:space-between; align-items:center;
     padding:34px 6vw; max-width:1320px; margin:0 auto;
@@ -65,16 +58,15 @@
     font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
     font-size:32px; letter-spacing:0.01em; color:var(--parchment);
   }
-  .navlinks{ display:flex; gap:44px; }
+  .navlinks{ display:flex; gap:34px; }
   .navlinks a{
-    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.2em;
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.15em;
     text-transform:uppercase; color:var(--parchment-dim); font-weight:400;
-    transition:color .4s;
+    transition:color .4s; white-space:nowrap;
   }
   .navlinks a:hover{ color:var(--gold); }
   .navlinks a.current{ color:var(--gold); }
 
-  /* ---------- intro ---------- */
   .intro{
     max-width:1320px; margin:0 auto; padding:9vh 6vw 7vh;
     position:relative; z-index:2;
@@ -85,14 +77,13 @@
     color:var(--parchment); max-width:760px;
   }
   .intro p{
-    font-size:19px; line-height:1.8; color:var(--parchment-dim); max-width:600px;
+    font-size:19px; line-height:1.8; color:var(--parchment-dim); max-width:640px;
   }
   .meta-row{
     display:flex; gap:40px; margin-top:30px; font-family:'Jost'; font-size:12px;
     letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-soft);
   }
 
-  /* ---------- gallery: aspect-matched grid, no cropping ---------- */
   .gallery{
     max-width:1200px; margin:0 auto; padding:2vh 6vw 12vh;
     position:relative; z-index:2;
@@ -106,12 +97,6 @@
   }
   .ph.portrait{ aspect-ratio:3/4; }
   .ph.landscape{ aspect-ratio:4/3; }
-  .p1{ grid-column:span 2; } /* tutu on mannequin, portrait */
-  .p2{ grid-column:span 4; } /* tutu flat lay, landscape */
-  .p3{ grid-column:span 3; } /* cream bustier front */
-  .p4{ grid-column:span 3; } /* cream bustier back */
-  .p5{ grid-column:span 3; } /* pink bustier front */
-  .p6{ grid-column:span 3; } /* pink bustier back */
   .ph::after{
     content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
     box-shadow: inset 0 0 70px rgba(0,0,0,0.55);
@@ -125,14 +110,20 @@
   }
   .ph:hover img{ transform:scale(1.035); }
 
+  footer{ padding:40px 6vw 60px; text-align:center; position:relative; z-index:2; border-top:1px solid var(--hairline); }
+  footer .sans{ font-family:'Jost'; font-size:11px; letter-spacing:0.15em; color:var(--gold-soft); text-transform:uppercase; }
+
+
+  .gallery{ max-width:900px; }
+  .p1{ grid-column:span 3; }
+  .p2{ grid-column:span 3; }
+
   @media (max-width:700px){
     .gallery{ grid-template-columns:1fr; }
-    .p1, .p2, .p3, .p4, .p5, .p6{ grid-column:span 1; }
+    .p1,.p2{ grid-column:span 1; }
     .navlinks{ display:none; }
   }
 
-  footer{ padding:40px 6vw 60px; text-align:center; position:relative; z-index:2; border-top:1px solid var(--hairline); }
-  footer .sans{ font-family:'Jost'; font-size:11px; letter-spacing:0.15em; color:var(--gold-soft); text-transform:uppercase; }
 </style>
 </head>
 <body>
@@ -143,30 +134,26 @@
   <div class="navlinks">
     <a href="index.html#about">About</a>
     <a href="venice.html">Venice</a>
-    <a href="opera.html">Opera</a>
-    <a href="ballet.html" class="current">Ballet</a>
+    <a href="opera.html">Opera and Ballet</a>
+    <a href="ballet.html" class="current">High School Creations</a>
     <a href="index.html#contact">Contact</a>
   </div>
 </nav>
 
 <div class="intro">
-  <span class="eyebrow">Opéra National de Bordeaux</span>
-  <h1>Ballet</h1>
-  <p>For <em>The Nutcracker</em>, Cathy built platter tutus and structured bustiers during an intermittent contract at the Opéra National de Bordeaux — boned, fitted, and constructed the way ballet costumes have always been made: piece by piece, for a body that needs to move.</p>
+  <span class="eyebrow">Lycée Antoine Lomet · Lycée Vaclav Havel</span>
+  <h1>High School Creations</h1>
+  <p>Before her professional placements, Cathy trained at Lycée Vaclav Havel and Lycée Antoine Lomet, earning a silver medal at the regional and departmental rounds of the "Meilleure Apprentie de France" competition in 2021. This Premier Empire–style gown, sewn for her final-year project in 2024, reflects that early training in historical silhouette and construction.</p>
   <div class="meta-row">
-    <span>Opéra National de Bordeaux</span>
+    <span>DTMS Final-Year Project</span>
     <span>2024</span>
-    <span>Ballet · Corsetry</span>
+    <span>Historical · Empire</span>
   </div>
 </div>
 
 <div class="gallery">
-  <a href="#" class="ph portrait p1"><img src="images/ballet-1-tutu-form.jpg" alt="Platter tutu on a dress form in the costume workshop"></a>
-  <a href="#" class="ph landscape p2"><img src="images/ballet-2-tutu-flat.jpg" alt="Tutu skirt laid flat, showing its star-shaped construction"></a>
-  <a href="#" class="ph landscape p3"><img src="images/ballet-3-bustier-cream-front.jpg" alt="Cream bustier bodice construction, front view"></a>
-  <a href="#" class="ph landscape p4"><img src="images/ballet-4-bustier-cream-inside.jpg" alt="Cream bustier bodice construction, interior boning"></a>
-  <a href="#" class="ph landscape p5"><img src="images/ballet-5-bustier-pink-inside.jpg" alt="Pink bustier bodice construction, interior boning"></a>
-  <a href="#" class="ph landscape p6"><img src="images/ballet-6-bustier-pink-outside.jpg" alt="Pink bustier bodice, exterior satin"></a>
+  <a href="#" class="ph portrait p1"><img src="images/opera-4-dress-detail.jpg" alt="Detail of a white embroidered Premier Empire-style dress"></a>
+  <a href="#" class="ph portrait p2"><img src="images/opera-2-outdoor.jpg" alt="Cathy wearing the Premier Empire-style dress outdoors"></a>
 </div>
 
 <footer>

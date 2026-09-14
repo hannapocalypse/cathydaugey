@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Opera — Cathy Daugey</title>
+<title>Opera and Ballet — Cathy Daugey</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap');
 
@@ -28,6 +28,11 @@
       radial-gradient(ellipse 1400px 1000px at 30% 100%, rgba(70,15,22,0.20), transparent 60%),
       var(--void);
   }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:0.09; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
   .page-sheen{
     position:fixed; inset:0; pointer-events:none; z-index:1;
     opacity:0.045; mix-blend-mode:overlay;
@@ -36,17 +41,6 @@
       transparent 2px, transparent 7px
     );
   }
-  body::before{
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:999;
-    opacity:0.09; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-  body::after{
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
-    opacity:0.05;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><g fill='none' stroke='%23c9a15f' stroke-width='1'><path d='M120 10 C 150 40, 150 80, 120 110 C 90 80, 90 40, 120 10 Z'/><circle cx='120' cy='120' r='3'/><path d='M0 120 C 30 90, 70 90, 100 120 C 70 150, 30 150, 0 120 Z'/><path d='M120 230 C 150 200, 150 160, 120 130 C 90 160, 90 200, 120 230 Z'/><path d='M240 120 C 210 90, 170 90, 140 120 C 170 150, 210 150, 240 120 Z'/></g></svg>");
-    background-size:240px 240px;
-  }
 
   a{ color:inherit; text-decoration:none; }
   .eyebrow{
@@ -54,7 +48,6 @@
     letter-spacing:0.28em; text-transform:uppercase; color:var(--gold);
   }
 
-  /* ---------- nav ---------- */
   nav{
     display:flex; justify-content:space-between; align-items:center;
     padding:34px 6vw; max-width:1320px; margin:0 auto;
@@ -65,16 +58,15 @@
     font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
     font-size:32px; letter-spacing:0.01em; color:var(--parchment);
   }
-  .navlinks{ display:flex; gap:44px; }
+  .navlinks{ display:flex; gap:34px; }
   .navlinks a{
-    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.2em;
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.15em;
     text-transform:uppercase; color:var(--parchment-dim); font-weight:400;
-    transition:color .4s;
+    transition:color .4s; white-space:nowrap;
   }
   .navlinks a:hover{ color:var(--gold); }
   .navlinks a.current{ color:var(--gold); }
 
-  /* ---------- intro ---------- */
   .intro{
     max-width:1320px; margin:0 auto; padding:9vh 6vw 7vh;
     position:relative; z-index:2;
@@ -85,14 +77,13 @@
     color:var(--parchment); max-width:760px;
   }
   .intro p{
-    font-size:19px; line-height:1.8; color:var(--parchment-dim); max-width:600px;
+    font-size:19px; line-height:1.8; color:var(--parchment-dim); max-width:640px;
   }
   .meta-row{
     display:flex; gap:40px; margin-top:30px; font-family:'Jost'; font-size:12px;
     letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-soft);
   }
 
-  /* ---------- gallery: aspect-matched grid, no cropping ---------- */
   .gallery{
     max-width:1200px; margin:0 auto; padding:2vh 6vw 12vh;
     position:relative; z-index:2;
@@ -102,9 +93,10 @@
   }
   .ph{
     position:relative; overflow:hidden; border:1px solid var(--hairline);
-    display:block; aspect-ratio:3/4;
+    display:block;
   }
-  .p1, .p2, .p3, .p4{ grid-column:span 3; }
+  .ph.portrait{ aspect-ratio:3/4; }
+  .ph.landscape{ aspect-ratio:4/3; }
   .ph::after{
     content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
     box-shadow: inset 0 0 70px rgba(0,0,0,0.55);
@@ -118,14 +110,25 @@
   }
   .ph:hover img{ transform:scale(1.035); }
 
+  footer{ padding:40px 6vw 60px; text-align:center; position:relative; z-index:2; border-top:1px solid var(--hairline); }
+  footer .sans{ font-family:'Jost'; font-size:11px; letter-spacing:0.15em; color:var(--gold-soft); text-transform:uppercase; }
+
+
+  .p1{ grid-column:span 3; } /* coat front */
+  .p2{ grid-column:span 3; } /* coat back */
+  .p3{ grid-column:span 2; } /* tutu on form */
+  .p4{ grid-column:span 4; } /* tutu flat */
+  .p5{ grid-column:span 3; } /* cream bustier front */
+  .p6{ grid-column:span 3; } /* cream bustier inside */
+  .p7{ grid-column:span 3; } /* pink bustier inside */
+  .p8{ grid-column:span 3; } /* pink bustier outside */
+
   @media (max-width:700px){
     .gallery{ grid-template-columns:1fr; }
-    .p1, .p2, .p3, .p4{ grid-column:span 1; }
+    .p1,.p2,.p3,.p4,.p5,.p6,.p7,.p8{ grid-column:span 1; }
     .navlinks{ display:none; }
   }
 
-  footer{ padding:40px 6vw 60px; text-align:center; position:relative; z-index:2; border-top:1px solid var(--hairline); }
-  footer .sans{ font-family:'Jost'; font-size:11px; letter-spacing:0.15em; color:var(--gold-soft); text-transform:uppercase; }
 </style>
 </head>
 <body>
@@ -136,28 +139,32 @@
   <div class="navlinks">
     <a href="index.html#about">About</a>
     <a href="venice.html">Venice</a>
-    <a href="opera.html" class="current">Opera</a>
-    <a href="ballet.html">Ballet</a>
+    <a href="opera.html" class="current">Opera and Ballet</a>
+    <a href="ballet.html">High School Creations</a>
     <a href="index.html#contact">Contact</a>
   </div>
 </nav>
 
 <div class="intro">
   <span class="eyebrow">Opéra National de Bordeaux</span>
-  <h1>Opera</h1>
-  <p>Across three placements in different departments at the Opéra National de Bordeaux, Cathy helped build accessories for the ballet <em>Giselle</em> and learned the day-to-day work of dressing and maintaining costumes through a live season — an early, hands-on introduction to how a major opera house operates behind the curtain.</p>
+  <h1>Opera and Ballet</h1>
+  <p>Across placements in different departments at the Opéra National de Bordeaux — plus an intermittent contract for <em>The Nutcracker</em> — Cathy helped build accessories for the ballet <em>Giselle</em>, built platter tutus and structured bustiers, and learned the day-to-day work of dressing and maintaining costumes through a live season.</p>
   <div class="meta-row">
     <span>Opéra National de Bordeaux</span>
     <span>2021 – 2024</span>
-    <span>Theatrical · Stage</span>
+    <span>Theatrical · Ballet</span>
   </div>
 </div>
 
 <div class="gallery">
-  <a href="#" class="ph p1"><img src="images/opera-1-coat-front.jpg" alt="Grey coat with red and white chevron trim, front view"></a>
-  <a href="#" class="ph p2"><img src="images/opera-3-coat-back.jpg" alt="Back of the grey coat with a red and white caduceus emblem"></a>
-  <a href="#" class="ph p3"><img src="images/opera-2-outdoor.jpg" alt="Cathy and a colleague wearing costumes outdoors, including a white embroidered dress"></a>
-  <a href="#" class="ph p4"><img src="images/opera-4-dress-detail.jpg" alt="Detail of a white embroidered dress bodice and skirt"></a>
+  <a href="#" class="ph portrait p1"><img src="images/opera-1-coat-front.jpg" alt="Grey coat with red and white chevron trim, front view"></a>
+  <a href="#" class="ph portrait p2"><img src="images/opera-3-coat-back.jpg" alt="Back of the grey coat with a red and white caduceus emblem"></a>
+  <a href="#" class="ph portrait p3"><img src="images/ballet-1-tutu-form.jpg" alt="Platter tutu on a dress form in the costume workshop"></a>
+  <a href="#" class="ph landscape p4"><img src="images/ballet-2-tutu-flat.jpg" alt="Tutu skirt laid flat, showing its star-shaped construction"></a>
+  <a href="#" class="ph landscape p5"><img src="images/ballet-3-bustier-cream-front.jpg" alt="Cream bustier bodice construction, front view"></a>
+  <a href="#" class="ph landscape p6"><img src="images/ballet-4-bustier-cream-inside.jpg" alt="Cream bustier bodice construction, interior boning"></a>
+  <a href="#" class="ph landscape p7"><img src="images/ballet-5-bustier-pink-inside.jpg" alt="Pink bustier bodice construction, interior boning"></a>
+  <a href="#" class="ph landscape p8"><img src="images/ballet-6-bustier-pink-outside.jpg" alt="Pink bustier bodice, exterior satin"></a>
 </div>
 
 <footer>
